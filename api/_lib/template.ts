@@ -22,6 +22,8 @@ function getCss(theme: string, fontSize: string) {
         radial = 'dimgray';
     }
     return `
+    @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
     @font-face {
         font-family: 'Inter';
         font-style:  normal;
@@ -104,7 +106,7 @@ function getCss(theme: string, fontSize: string) {
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme, md, fontSize, images, widths, heights } = parsedReq;
+    const { text, theme, md, fontSize, images, widths, heights,price } = parsedReq;
     return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -122,9 +124,13 @@ export function getHtml(parsedReq: ParsedRequest) {
                 ).join('')}
             </div>
             <div class="spacer">
-            <div class="heading">${emojify(
-                md ? marked(text) : sanitizeHtml(text)
-            )}
+            <div class="heading">
+                <div>
+                    ${emojify(
+                        md ? marked(text) : sanitizeHtml(text)
+                    )}
+                </div>
+                <div>${price}円</div>
             </div>
         </div>
     </body>
