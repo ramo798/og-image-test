@@ -5,7 +5,7 @@ import { ParsedRequest, Theme } from './types';
 export function parseRequest(req: IncomingMessage) {
     console.log('HTTP ' + req.url);
     const { pathname, query } = parse(req.url || '/', true);
-    const { fontSize, images, widths, heights, theme, md,price } = (query || {});
+    const { fontSize, images, widths, heights, theme, md,price,upto } = (query || {});
 
     if (Array.isArray(fontSize)) {
         throw new Error('Expected a single fontSize');
@@ -26,6 +26,7 @@ export function parseRequest(req: IncomingMessage) {
         text = arr.join('.');
     }
 
+
     const parsedRequest: ParsedRequest = {
         fileType: extension === 'jpeg' ? extension : 'png',
         text: decodeURIComponent(text),
@@ -36,6 +37,7 @@ export function parseRequest(req: IncomingMessage) {
         widths: getArray(widths),
         heights: getArray(heights),
         price: getArray(price),
+        upto:getArray(upto),
     };
     parsedRequest.images = getDefaultImages(parsedRequest.images, parsedRequest.theme);
     return parsedRequest;
@@ -64,3 +66,4 @@ function getDefaultImages(images: string[], theme: Theme): string[] {
     }
     return images;
 }
+// http://localhost:3000/**%E3%83%9F%E3%83%A5%E3%82%A6VMAX**.png?&upto=10&md=1&price=1200&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fvercel-triangle-black.svg

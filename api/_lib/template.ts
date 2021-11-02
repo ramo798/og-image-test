@@ -43,7 +43,7 @@ function getCss(theme: string, fontSize: string) {
         font-style: normal;
         font-weight: normal;
         src: url(data:font/woff2;charset=utf-8;base64,${mono})  format("woff2");
-      }
+    }
 
     body {
         background: ${background};
@@ -95,7 +95,31 @@ function getCss(theme: string, fontSize: string) {
         margin: 0 .05em 0 .1em;
         vertical-align: -0.1em;
     }
-    
+
+    .w100{
+        width:100%;
+    }
+
+    .flex{
+        display:flex;
+    }
+
+    .left{
+        font-family: 'Inter', sans-serif;
+        font-size: 96px;
+        font-style: normal;
+        color: black;
+        line-height: 1.8;
+        width:50%;
+    }
+    .right{
+        width:50%;
+    }
+
+    .f-bold{
+        font-weight: bold;
+    }
+
     .heading {
         font-family: 'Inter', sans-serif;
         font-size: ${sanitizeHtml(fontSize)};
@@ -106,7 +130,8 @@ function getCss(theme: string, fontSize: string) {
 }
 
 export function getHtml(parsedReq: ParsedRequest) {
-    const { text, theme, md, fontSize, images, widths, heights,price } = parsedReq;
+    const { text, theme, md, fontSize, images, widths, heights,price,upto } = parsedReq;
+
     return `<!DOCTYPE html>
 <html>
     <meta charset="utf-8">
@@ -116,21 +141,15 @@ export function getHtml(parsedReq: ParsedRequest) {
         ${getCss(theme, fontSize)}
     </style>
     <body>
-        <div>
-            <div class="spacer">
-            <div class="logo-wrapper">
-                ${images.map((img, i) =>
-                    getPlusSign(i) + getImage(img, widths[i], heights[i])
-                ).join('')}
-            </div>
-            <div class="spacer">
-            <div class="heading">
-                <div>
-                    ${emojify(
-                        md ? marked(text) : sanitizeHtml(text)
-                    )}
+        <div class="w100">
+            <div class="flex">
+                <div class="left">
+                    <div class="cardname">
+                        ${emojify(md ? marked(text) : sanitizeHtml(text))}
+                    </div>
+                    <div>平均価格:<span class="f-bold"> ${price}</span>円</div>
                 </div>
-                <div>${price}円</div>
+                <div class="right">aaa</div>
             </div>
         </div>
     </body>

@@ -1,0 +1,17 @@
+<div>
+            <div class="spacer">
+            <div class="logo-wrapper">
+                ${images.map((img, i) =>
+                    getPlusSign(i) + getImage(img, widths[i], heights[i])
+                ).join('')}
+            </div>
+            <div class="spacer">
+            <div class="heading">
+                <div>
+                    ${emojify(
+                        md ? marked(text) : sanitizeHtml(text)
+                    )}
+                </div>
+                <div>${price}円</div>
+            </div>
+        </div>

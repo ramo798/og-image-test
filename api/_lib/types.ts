@@ -11,4 +11,5 @@ export interface ParsedRequest {
     widths: string[];
     heights: string[];
     price: string[];
+    upto: string[];
 }
